@@ -1,0 +1,10 @@
+services:
+  dackeri:
+    build:
+      context: .
+    command: python3 src/app.py
+  dackerisimple:
+    build:
+      context: .
+      dockerfile: Dockerfile.simple
+    command: python3 src/app.simple.py

@@ -1,0 +1,29 @@
+# Define desired Python version number
+ARG PYTHON_VERSION=3.11.5
+# Use an official Python image as a base
+FROM python:${PYTHON_VERSION}-slim as base
+
+# Prevents Python from writing pyc files.
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Keeps Python from buffering stdout and stderr to avoid situations where
+# the application crashes without emitting any logs due to buffering.
+ENV PYTHONUNBUFFERED=1
+
+# Move to /app directory
+WORKDIR /app
+
+# Copy requirements.txt into the image
+COPY requirements.txt .
+
+# Download Python dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
+# Install Python dependecies
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install -r requirements.txt
+
+# Copy the source code into the container.
+COPY src ./src
+
+# Run the application.
+CMD python3 src/app.py
