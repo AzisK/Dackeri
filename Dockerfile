@@ -61,6 +61,9 @@ WORKDIR /app
 # Copy requirements.txt into the image
 COPY requirements.txt .
 
+# Upgrade pip
+RUN pip3 install --upgrade pip
+
 # Download Python dependencies as a separate step to take advantage of Docker's caching
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds
 # Install Python dependecies
