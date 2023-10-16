@@ -1,7 +1,7 @@
 # Define desired Python version number
 ARG PYTHON_VERSION=3.11.5
 # Use an official Python image as a base
-FROM python:${PYTHON_VERSION}-slim as base
+FROM python:${PYTHON_VERSION} as base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
